@@ -1,8 +1,8 @@
-# Answers to question 1.1 "is unique".
+# Answers to question 1.1 "Is Unique".
 
-# This function assumes an alphabet of 128 characters.
+# This function assumes a finite alphabet of 128 characters.
 #
-# Time complexity: if |s| < |alphabet|: O(|s|), else O(|alphabet|) = O(1).
+# Time complexity: O(min(|s|, |alphabet|)).
 def is_unique_ascii(s: str) -> bool:
     if len(s) > 128:
         return False

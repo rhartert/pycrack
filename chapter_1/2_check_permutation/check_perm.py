@@ -1,9 +1,9 @@
-# Answers to question 1.2 "check permutation".
+# Answers to question 1.2 "Check Permutation".
 from collections import Counter
 from dataclasses import dataclass
 
 
-# Time complexity O(|s1| + |s2|).
+# Time complexity: O(|s1| + |s2|).
 def check_perm(s1: str, s2: str) -> bool:
     if len(s1) != len(s2):
         return False
