@@ -1,3 +1,8 @@
+# Exclude files and directories starting with '.' except for 
+# explicit exceptions.
 .*
 !.gitignore
 !.github
+
+# Exclude python's cache.
+**/__pycache__
