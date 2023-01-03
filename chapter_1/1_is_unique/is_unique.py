@@ -35,7 +35,7 @@ def is_unique(s: str) -> bool:
 # Time complexity: O(|s|^2)
 def is_unique_no_struct(s: str) -> bool:
     # Strings are immutable in Python so sorting the string and checking
-    # for adjacent equivalent character is not an option.
+    # for adjacent equivalent characters is not an option.
     for i in range(len(s)):
         for j in range(i+1, len(s)):
             if s[i] == s[j]:
