@@ -50,7 +50,7 @@ TEST_CASES = [
 ]
 
 
-def test_check_perm():
+def test():
     for tc in TEST_CASES:
         urlify(tc.string, tc.length)  # inplace
         assert ''.join(tc.string) == ''.join(tc.want)

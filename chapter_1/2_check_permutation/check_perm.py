@@ -40,6 +40,6 @@ TEST_CASES = [
 ]
 
 
-def test_check_perm():
+def test():
     for tc in TEST_CASES:
         assert check_perm(tc.s1, tc.s2) == tc.want

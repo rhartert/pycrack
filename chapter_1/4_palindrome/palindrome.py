@@ -72,7 +72,7 @@ TEST_CASES = [
 ]
 
 
-def test_check_perm():
+def test():
     for tc in TEST_CASES:
         assert palindrome(tc.string) == tc.want
         assert palindrome_bit(tc.string) == tc.want
