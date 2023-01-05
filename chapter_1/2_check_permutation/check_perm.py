@@ -1,6 +1,6 @@
 # Answers to question 1.2 "Check Permutation".
+import unittest
 from collections import Counter
-from dataclasses import dataclass
 
 
 # Time complexity: O(|s1| + |s2|).
@@ -17,29 +17,23 @@ def check_perm(s1: str, s2: str) -> bool:
     return True
 
 
-# UNIT TESTS
-# ----------
+class Test(unittest.TestCase):
+    test_cases = [
+        ("", "", True),
+        ("a", "a", True),
+        ("ab", "ab", True),
+        ("abbcccdddd", "abcdbcdcdd", True),
+        ("", "a", False),
+        ("a", "b", False),
+        ("aa", "ba", False),
+        ("Ab", "ab", False),
+        ("abbccc", "abcbcb", False),
+    ]
 
-@dataclass
-class TCase():
-    s1: str
-    s2: str
-    want: bool
-
-
-TEST_CASES = [
-    TCase("", "", True),
-    TCase("a", "a", True),
-    TCase("ab", "ab", True),
-    TCase("abbcccdddd", "abcdbcdcdd", True),
-    TCase("", "a", False),
-    TCase("a", "b", False),
-    TCase("aa", "ba", False),
-    TCase("Ab", "ab", False),
-    TCase("abbccc", "abcbcb", False),
-]
+    def test(self):
+        for s1, s2, want in self.test_cases:
+            assert check_perm(s1, s2) == want
 
 
-def test():
-    for tc in TEST_CASES:
-        assert check_perm(tc.s1, tc.s2) == tc.want
+if __name__ == "__main__":
+    unittest.main()

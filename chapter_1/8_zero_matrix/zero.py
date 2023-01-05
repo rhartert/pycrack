@@ -1,5 +1,5 @@
 # Answers to question 1.8 "Zero Matrix".
-from dataclasses import dataclass
+import unittest
 
 
 # This function assumes that the given matrix is NxM.
@@ -29,112 +29,107 @@ def zero(matrix: list[list[int]]):
                 matrix[r][c] = 0
 
 
-# UNIT TESTS
-# ----------
+class Test(unittest.TestCase):
+    test_cases = [
+        (
+            [
+                [1],
+            ],
+            [
+                [1],
+            ],
+        ),
+        (
+            [
+                [0],
+            ],
+            [
+                [0],
+            ],
+        ),
+        (
+            [
+                [1, 2],
+                [2, 3],
+            ],
+            [
+                [1, 2],
+                [2, 3],
+            ],
+        ),
+        (
+            [
+                [1, 2],
+                [2, 0],
+            ],
+            [
+                [1, 0],
+                [0, 0],
+            ],
+        ),
+        (
+            [
+                [0, 2],
+                [2, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+            ],
+        ),
+        (
+            [
+                [0, 2, 0],
+                [2, 1, 2],
+            ],
+            [
+                [0, 0, 0],
+                [0, 1, 0],
+            ],
+        ),
+        (
+            [
+                [0, 2, 0],
+                [2, 1, 2],
+                [3, 3, 3],
+            ],
+            [
+                [0, 0, 0],
+                [0, 1, 0],
+                [0, 3, 0],
+            ],
+        ),
+        (
+            [
+                [0, 2, 3],
+                [2, 1, 2],
+                [3, 3, 0],
+            ],
+            [
+                [0, 0, 0],
+                [0, 1, 0],
+                [0, 0, 0],
+            ],
+        ),
+        (
+            [
+                [1, 2, 3],
+                [2, 0, 2],
+                [3, 3, 3],
+            ],
+            [
+                [1, 0, 3],
+                [0, 0, 0],
+                [3, 0, 3],
+            ],
+        ),
+    ]
 
-@dataclass
-class TCase():
-    matrix: list[list[int]]
-    want: list[list[int]]
-
-
-TEST_CASES = [
-    TCase(
-        matrix=[
-            [1],
-        ],
-        want=[
-            [1],
-        ]
-    ),
-    TCase(
-        matrix=[
-            [0],
-        ],
-        want=[
-            [0],
-        ]
-    ),
-    TCase(
-        matrix=[
-            [1, 2],
-            [2, 3],
-        ],
-        want=[
-            [1, 2],
-            [2, 3],
-        ],
-    ),
-    TCase(
-        matrix=[
-            [1, 2],
-            [2, 0],
-        ],
-        want=[
-            [1, 0],
-            [0, 0],
-        ],
-    ),
-    TCase(
-        matrix=[
-            [0, 2],
-            [2, 0],
-        ],
-        want=[
-            [0, 0],
-            [0, 0],
-        ],
-    ),
-    TCase(
-        matrix=[
-            [0, 2, 0],
-            [2, 1, 2],
-        ],
-        want=[
-            [0, 0, 0],
-            [0, 1, 0],
-        ],
-    ),
-    TCase(
-        matrix=[
-            [0, 2, 0],
-            [2, 1, 2],
-            [3, 3, 3]
-        ],
-        want=[
-            [0, 0, 0],
-            [0, 1, 0],
-            [0, 3, 0]
-        ],
-    ),
-    TCase(
-        matrix=[
-            [0, 2, 3],
-            [2, 1, 2],
-            [3, 3, 0]
-        ],
-        want=[
-            [0, 0, 0],
-            [0, 1, 0],
-            [0, 0, 0]
-        ],
-    ),
-    TCase(
-        matrix=[
-            [1, 2, 3],
-            [2, 0, 2],
-            [3, 3, 3]
-        ],
-        want=[
-            [1, 0, 3],
-            [0, 0, 0],
-            [3, 0, 3]
-        ],
-    ),
-]
+    def test(self):
+        for matrix, want in self.test_cases:
+            zero(matrix)  # inplace
+            assert matrix == want
 
 
-def test():
-    for tc in TEST_CASES:
-        zero(tc.matrix)  # inplace
-        assert tc.matrix == tc.want
+if __name__ == "__main__":
+    unittest.main()

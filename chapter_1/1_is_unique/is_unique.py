@@ -1,4 +1,5 @@
 # Answers to question 1.1 "Is Unique".
+import unittest
 
 # This function assumes a finite alphabet of 128 characters.
 #
@@ -37,30 +38,30 @@ def is_unique_no_struct(s: str) -> bool:
     # Strings are immutable in Python so sorting the string and checking
     # for adjacent equivalent characters is not an option.
     for i in range(len(s)):
-        for j in range(i+1, len(s)):
+        for j in range(i + 1, len(s)):
             if s[i] == s[j]:
                 return False
     return True
 
 
-# UNIT TESTS
-# ----------
+class Test(unittest.TestCase):
+    test_cases = [
+        ("", True),
+        ("a", True),
+        ("abc", True),
+        ("aa", False),
+        ("abcde123a", False),
+        ("123abcd3", False),
+        ("a b c", False),
+        ("a\tb\tc", False),
+    ]
 
-TEST_CASES = {
-    "": True,
-    "a": True,
-    "abc": True,
-    "aa": False,
-    "abcde123a": False,
-    "123abcd3": False,
-    "a b c": False,
-    "a\tb\tc": False,
-}
+    def test(self):
+        for s, want in self.test_cases:
+            assert is_unique(s) == want
+            assert is_unique_ascii(s) == want
+            assert is_unique_no_struct(s) == want
 
 
-def test():
-    for s in TEST_CASES:
-        want = TEST_CASES[s]
-        assert is_unique(s) == want
-        assert is_unique_ascii(s) == want
-        assert is_unique_no_struct(s) == want
+if __name__ == "__main__":
+    unittest.main()

@@ -1,9 +1,9 @@
 # Answers to question 1.6 "String Compression".
-from dataclasses import dataclass
+import unittest
 
 
 # Simple implementation of a "Java-like" StringBuffer.
-class StringBuffer():
+class StringBuffer:
     def __init__(self):
         self._buffer = []
         self._size = 0
@@ -13,7 +13,7 @@ class StringBuffer():
         self._size += len(s)
 
     def string(self) -> str:
-        return ''.join(self._buffer)
+        return "".join(self._buffer)
 
     def __len__(self):
         return self._size
@@ -33,7 +33,7 @@ def compress(s: str) -> str:
     count = 0
     for i in range(len(s)):
         count += 1
-        if i+1 == len(s) or s[i] != s[i+1]:
+        if i + 1 == len(s) or s[i] != s[i + 1]:
             sb.append(s[i])
             sb.append(str(count))
             count = 0  # reset the counter
@@ -44,28 +44,23 @@ def compress(s: str) -> str:
     return sb.string()
 
 
-# UNIT TESTS
-# ----------
+class Test(unittest.TestCase):
+    test_cases = [
+        ("", ""),
+        ("a", "a"),
+        ("aa", "aa"),
+        ("ab", "ab"),
+        ("aaa", "a3"),
+        ("abcd", "abcd"),
+        ("aabbccdd", "aabbccdd"),
+        ("aaabbcccd", "a3b2c3d1"),
+        ("aabccccaaa", "a2b1c4a3"),
+    ]
 
-@dataclass
-class TCase():
-    s: str
-    want: str
-
-
-TEST_CASES = [
-    TCase("", ""),
-    TCase("a", "a"),
-    TCase("aa", "aa"),
-    TCase("ab", "ab"),
-    TCase("aaa", "a3"),
-    TCase("abcd", "abcd"),
-    TCase("aabbccdd", "aabbccdd"),
-    TCase("aaabbcccd", "a3b2c3d1"),
-    TCase("aabccccaaa", "a2b1c4a3"),
-]
+    def test(self):
+        for s, want in self.test_cases:
+            assert compress(s) == want
 
 
-def test():
-    for tc in TEST_CASES:
-        assert compress(tc.s) == tc.want
+if __name__ == "__main__":
+    unittest.main()

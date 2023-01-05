@@ -1,5 +1,5 @@
 # Answers to question 1.5 "One Away".
-from dataclasses import dataclass
+import unittest
 
 
 # Time complexity: O(min(|s1|, |s2|)).
@@ -43,35 +43,28 @@ def one_replace(s1: str, s2: str) -> bool:
     return True
 
 
-# UNIT TESTS
-# ----------
+class Test(unittest.TestCase):
+    test_cases = [
+        ("", "", True),
+        ("", "a", True),
+        ("a", "a", True),
+        ("a", "b", True),
+        ("aa", "aa", True),
+        ("aa", "ab", True),
+        ("aa", "baa", True),
+        ("aa", "aba", True),
+        ("aa", "aab", True),
+        ("", "aa", False),
+        ("a", "aba", False),
+        ("aa", "bb", False),
+        ("aaa", "bab", False),
+    ]
 
-@dataclass
-class TCase():
-    s1: str
-    s2: str
-    want: bool
-
-
-# Each test case is tested symmetrically.
-TEST_CASES = [
-    TCase("", "", True),
-    TCase("", "a", True),
-    TCase("a", "a", True),
-    TCase("a", "b", True),
-    TCase("aa", "aa", True),
-    TCase("aa", "ab", True),
-    TCase("aa", "baa", True),
-    TCase("aa", "aba", True),
-    TCase("aa", "aab", True),
-    TCase("", "aa", False),
-    TCase("a", "aba", False),
-    TCase("aa", "bb", False),
-    TCase("aaa", "bab", False),
-]
+    def test(self):
+        for s1, s2, want in self.test_cases:
+            assert one_away(s1, s2) == want
+            assert one_away(s2, s1) == want
 
 
-def test():
-    for tc in TEST_CASES:
-        assert one_away(tc.s1, tc.s2) == tc.want
-        assert one_away(tc.s2, tc.s1) == tc.want
+if __name__ == "__main__":
+    unittest.main()

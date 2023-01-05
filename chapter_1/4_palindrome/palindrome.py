@@ -1,6 +1,6 @@
 # Answers to question 1.4 "Palindrome Permutation".
 from collections import Counter
-from dataclasses import dataclass
+import unittest
 
 
 # Time complexity: O(|s|).
@@ -21,8 +21,8 @@ def palindrome(s: str) -> bool:
     return True
 
 
-# This function assumes that the string only contains letters from a to z. It 
-# doesn't improve the time complexity but might be faster than the above 
+# This function assumes that the string only contains letters from a to z. It
+# doesn't improve the time complexity but might be faster than the above
 # implementation in practice.
 #
 # Time complexity: O(|s|).
@@ -30,7 +30,7 @@ def palindrome_bit(s: str) -> bool:
     if len(s) <= 1:
         return True
 
-    # bit vector representing whether char i is odd (1) or not (0). 
+    # bit vector representing whether char i is odd (1) or not (0).
     is_odd = 0
 
     for c in s:
@@ -49,30 +49,25 @@ def to_int(char: str) -> int:
     return ord(char) - ord("a")
 
 
-# UNIT TESTS
-# ----------
+class Test(unittest.TestCase):
+    test_cases = [
+        ("", True),
+        ("a", True),
+        ("aa", True),
+        ("bba", True),
+        ("aabb", True),
+        ("abbac", True),
+        ("ab", False),
+        ("abc", False),
+        ("abbb", False),
+        ("abcb", False),
+    ]
 
-@dataclass
-class TCase():
-    string: str
-    want: bool
-
-
-TEST_CASES = [
-    TCase("", True),
-    TCase("a", True),
-    TCase("aa", True),
-    TCase("bba", True),
-    TCase("aabb", True),
-    TCase("abbac", True),
-    TCase("ab", False),
-    TCase("abc", False),
-    TCase("abbb", False),
-    TCase("abcb", False),
-]
+    def test(self):
+        for s, want in self.test_cases:
+            assert palindrome(s) == want
+            assert palindrome_bit(s) == want
 
 
-def test():
-    for tc in TEST_CASES:
-        assert palindrome(tc.string) == tc.want
-        assert palindrome_bit(tc.string) == tc.want
+if __name__ == "__main__":
+    unittest.main()
