@@ -1,3 +1,5 @@
+[![Python Test](https://github.com/rhartert/pycrack/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/rhartert/pycrack/actions/workflows/test.yml)
+
 # pycrack
 
 Python implementation of the [_6th edition of Cracking the Coding Interview_](https://www.crackingthecodinginterview.com/) for educational purposes. 
